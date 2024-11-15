@@ -1,0 +1,35 @@
+@startuml pembayaran
+!define RECTANGLE class
+
+actor User as "Pengguna"
+actor Admin as "Admin"
+
+' Proses Pembayaran
+RECTANGLE "Payment" {
+    :Create Payment;
+    :View Payment Status;
+    :Update Payment Status;
+    :Cancel Payment;
+}
+
+' Proses Transaksi
+RECTANGLE "Transaction" {
+    :Create Transaction;
+    :View Transaction Details;
+}
+
+' Proses Role & Permissions
+RECTANGLE "Role and Permission Management" {
+    :Assign Role to User;
+    :Assign Permission to User;
+    :View Permissions of User;
+}
+
+User -> "Payment" : Request Payment
+"Payment" -> "Transaction" : Process Payment
+"Transaction" -> User : Notify Payment Success
+
+Admin -> "Role and Permission Management" : Manage Roles & Permissions
+"Role and Permission Management" -> Admin : Update Permissions
+
+@enduml

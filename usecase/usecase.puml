@@ -1,0 +1,22 @@
+@startuml pembayaran
+actor User as "Pengguna"
+actor Admin as "Admin"
+
+usecase "Membuat Pembayaran" as UC1
+usecase "Melihat Status Pembayaran" as UC2
+usecase "Membuat Transaksi" as UC3
+usecase "Melihat Rincian Transaksi" as UC4
+usecase "Mengelola Roles & Permissions" as UC5
+usecase "Menetapkan Role" as UC6
+usecase "Menetapkan Permission" as UC7
+
+User -> UC1 : "Membuat Pembayaran"
+User -> UC2 : "Melihat Status Pembayaran"
+User -> UC3 : "Membuat Transaksi"
+User -> UC4 : "Melihat Rincian Transaksi"
+
+Admin -> UC5 : "Mengelola Roles & Permissions"
+Admin -> UC6 : "Menetapkan Role"
+Admin -> UC7 : "Menetapkan Permission"
+
+@enduml

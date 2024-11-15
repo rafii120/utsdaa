@@ -1,0 +1,75 @@
+@startuml pembayaran
+!define RECTANGLE class
+
+' Tabel User
+RECTANGLE User {
+    +id: BIGINT UNSIGNED
+    +name: VARCHAR(255)
+    +email: VARCHAR(255)
+    +password: VARCHAR(255)
+    +created_at: TIMESTAMP
+    +updated_at: TIMESTAMP
+}
+
+' Tabel Payment
+RECTANGLE Payment {
+    +id: BIGINT UNSIGNED
+    +invoice_number: VARCHAR(255)
+    +amount: DECIMAL(10,2)
+    +due_date: DATE
+    +status: ENUM('pending', 'completed', 'failed')
+    +created_at: TIMESTAMP
+    +updated_at: TIMESTAMP
+}
+
+' Tabel Transaction
+RECTANGLE Transaction {
+    +id: BIGINT UNSIGNED
+    +payment_id: BIGINT UNSIGNED
+    +amount_paid: DECIMAL(10,2)
+    +payment_method: VARCHAR(255)
+    +paid_at: TIMESTAMP
+    +created_at: TIMESTAMP
+    +updated_at: TIMESTAMP
+}
+
+' Tabel Role
+RECTANGLE Role {
+    +id: BIGINT UNSIGNED
+    +name: VARCHAR(255)
+    +guard_name: VARCHAR(255)
+    +created_at: TIMESTAMP
+    +updated_at: TIMESTAMP
+}
+
+' Tabel Permission
+RECTANGLE Permission {
+    +id: BIGINT UNSIGNED
+    +name: VARCHAR(255)
+    +guard_name: VARCHAR(255)
+    +created_at: TIMESTAMP
+    +updated_at: TIMESTAMP
+}
+
+' Tabel Model_has_permissions (Relasi antara Permission dan Model)
+RECTANGLE ModelHasPermissions {
+    +permission_id: BIGINT UNSIGNED
+    +model_type: VARCHAR(255)
+    +model_id: BIGINT UNSIGNED
+}
+
+' Tabel Model_has_roles (Relasi antara Role dan Model)
+RECTANGLE ModelHasRoles {
+    +role_id: BIGINT UNSIGNED
+    +model_type: VARCHAR(255)
+    +model_id: BIGINT UNSIGNED
+}
+
+' Relasi antar tabel
+User "1" -- "*" Role : "has"
+User "1" -- "*" Permission : "has"
+Payment "1" -- "*" Transaction : "has"
+Role "1" -- "*" Permission : "has"
+ModelHasPermissions "*" -- "1" Permission : "assigned"
+ModelHasRoles "*" -- "1" Role : "assigned"
+@enduml
